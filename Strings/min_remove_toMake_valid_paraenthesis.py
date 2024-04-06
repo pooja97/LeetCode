@@ -8,7 +8,6 @@ It can be written as AB (A concatenated with B), where A and B are valid strings
 It can be written as (A), where A is a valid string.
 
 Example 1:
-
 Input: s = "lee(t(c)o)de)"
 Output: "lee(t(c)o)de"
 Explanation: "lee(t(co)de)" , "lee(t(c)ode)" would also be accepted.
