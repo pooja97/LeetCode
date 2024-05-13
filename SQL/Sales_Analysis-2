@@ -1,0 +1,54 @@
+Table: Product
+
++--------------+---------+
+| Column Name  | Type    |
++--------------+---------+
+| product_id   | int     |
+| product_name | varchar |
+| unit_price   | int     |
++--------------+---------+
+product_id is the primary key (column with unique values) of this table.
+Each row of this table indicates the name and the price of each product.
+Table: Sales
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| seller_id   | int     |
+| product_id  | int     |
+| buyer_id    | int     |
+| sale_date   | date    |
+| quantity    | int     |
+| price       | int     |
++-------------+---------+
+This table might have repeated rows.
+product_id is a foreign key (reference column) to the Product table.
+buyer_id is never NULL. 
+sale_date is never NULL. 
+Each row of this table contains some information about one sale.
+
+Solution1: Using CTE:
+
+with cte as(
+select s.buyer_id
+from Product p join Sales s on p.product_id = s.product_id
+where p.product_name = 'iPhone'),
+
+cte2 as(
+select s.buyer_id
+from Product p join Sales s on p.product_id = s.product_id
+where p.product_name = 'S8'
+)
+
+select distinct buyer_id from cte2 where buyer_id not in (select buyer_id from cte);
+
+Solution 2: using Having sum():
+
+select buyer_id from
+sales as t1 join product as t2
+on t1.product_id = t2.product_id
+group by t1.buyer_id
+having sum(t2.product_name = 'S8')>0
+and sum(t2.product_name = 'iPhone')=0
+
+
