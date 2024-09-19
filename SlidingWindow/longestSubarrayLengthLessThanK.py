@@ -33,7 +33,7 @@ class Solution:
             while(i<=j and d[nums[j]] > k ):
                 d[nums[i]]-=1 
                 i+=1 
-            #At Each step maintain the longest window size.
+            #At Each step maintain the longest window size.s
             max_len = max(max_len,(j-i+1))
             j+=1 
 
